@@ -24,6 +24,7 @@ private:
     Ui::Widget *ui;
     int WorkTime;
     int RestTime;
+    int StartTime;
 
 
 };
