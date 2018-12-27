@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+IC_ICONS = cup.ico
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -34,3 +35,6 @@ HEADERS += \
 
 FORMS += \
         widget.ui
+
+RESOURCES += \
+    restwall.qrc

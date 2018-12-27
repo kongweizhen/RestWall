@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QTimer>
 #include <QDebug>
+#include <QSystemTrayIcon>
 #include "mywindow.h"
 
 namespace Ui {
@@ -29,6 +30,7 @@ private slots:
     void on_StaBtn_clicked();
 
     void on_StopBtn_clicked();
+    void on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason);
 
 private:
     Ui::Widget *ui;
@@ -39,8 +41,10 @@ private:
     QTimer *rt; //休息时间倒计时
 
     MyWindow *mywin;
+    QSystemTrayIcon *trayIcon;
 
     void StopTimer(int index);
+    void createTrayIcon();
 
 
 };
