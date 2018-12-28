@@ -5,6 +5,9 @@
 #include <QTimer>
 #include <QDebug>
 #include <QSystemTrayIcon>
+#include <QMenu>
+#include <QAction>
+#include <QSettings>
 #include "mywindow.h"
 
 namespace Ui {
@@ -19,6 +22,9 @@ public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
 
+signals:
+    void lastWindowClosed();
+
 private slots:
     void on_BtnApply_clicked();
 
@@ -32,6 +38,10 @@ private slots:
     void on_StopBtn_clicked();
     void on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason);
 
+    void on_spinWork_valueChanged(int arg1);
+
+    void on_spinRest_valueChanged(int arg1);
+
 private:
     Ui::Widget *ui;
     int WorkTime;
@@ -42,9 +52,13 @@ private:
 
     MyWindow *mywin;
     QSystemTrayIcon *trayIcon;
+    QMenu *trayMenu;
 
     void StopTimer(int index);
     void createTrayIcon();
+
+    void ReadSettings();
+    void WriteSetting();
 
 
 };

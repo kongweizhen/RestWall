@@ -8,8 +8,7 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("RestWall");
     this->setWindowFlags(Qt::WindowCloseButtonHint);
-    WorkTime = 5;
-    RestTime = 5;
+    ReadSettings();
     ui->spinWork->setValue(WorkTime);
     ui->spinRest->setValue(RestTime);
     ui->BtnApply->setDisabled(true);
@@ -65,8 +64,8 @@ Widget::~Widget()
 
 void Widget::on_BtnApply_clicked()
 {
-    WorkTime = ui->spinWork->value();
-    RestTime = ui->spinRest->value();
+    WriteSetting();
+    ui->BtnApply->setEnabled(false);
 }
 
 void Widget::on_BtnCancel_clicked()
@@ -93,11 +92,20 @@ void Widget::on_StopBtn_clicked()
 
 void Widget::createTrayIcon()
 {
+
     trayIcon = new QSystemTrayIcon(this);
     trayIcon->setIcon(QIcon(":/images/images/cup.ico"));
     trayIcon->setToolTip("RestWallApp");
     connect(trayIcon,SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this,SLOT(on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason)));
+
+    //---设置托盘小图标菜单
+    trayMenu = new QMenu(this);
+    QAction *exitAct = new QAction(tr("退出"));
+    connect(exitAct,SIGNAL(triggered()),this,SIGNAL(lastWindowClosed()));
+    trayMenu->addAction(exitAct);
+
+    trayIcon->setContextMenu(trayMenu);
     trayIcon->show();
 
 }
@@ -115,4 +123,32 @@ void Widget::on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason)
     default:
         break;
     }
+}
+
+void Widget::ReadSettings()
+{
+
+    QSettings settings("restwall.ini",QSettings::IniFormat);
+    WorkTime = settings.value("Time/worktime").toInt();
+    RestTime = settings.value("Time/resttime").toInt();
+
+}
+
+void Widget::WriteSetting()
+{
+    QSettings settings("restwall.ini",QSettings::IniFormat);
+    settings.setValue("Time/worktime",WorkTime);
+    settings.setValue("Time/resttime",RestTime);
+}
+
+void Widget::on_spinWork_valueChanged(int arg1)
+{
+    WorkTime = arg1;
+    ui->BtnApply->setEnabled(true);
+}
+
+void Widget::on_spinRest_valueChanged(int arg1)
+{
+    RestTime = arg1;
+    ui->BtnApply->setEnabled(true);
 }
