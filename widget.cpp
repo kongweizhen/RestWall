@@ -66,6 +66,7 @@ void Widget::on_BtnApply_clicked()
 {
     WriteSetting();
     ui->BtnApply->setEnabled(false);
+    ui->StaBtn->setEnabled(true);
 }
 
 void Widget::on_BtnCancel_clicked()
@@ -145,10 +146,12 @@ void Widget::on_spinWork_valueChanged(int arg1)
 {
     WorkTime = arg1;
     ui->BtnApply->setEnabled(true);
+    ui->StaBtn->setEnabled(false);
 }
 
 void Widget::on_spinRest_valueChanged(int arg1)
 {
     RestTime = arg1;
     ui->BtnApply->setEnabled(true);
+    ui->StaBtn->setEnabled(false);
 }
