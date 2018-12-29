@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
-IC_ICONS = cup.ico
+RC_ICONS += images/cup.ico
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

@@ -11,8 +11,7 @@ Widget::Widget(QWidget *parent) :
     ReadSettings();
     ui->spinWork->setValue(WorkTime);
     ui->spinRest->setValue(RestTime);
-    ui->BtnApply->setDisabled(true);
-
+    ui->ApplyBtn->setEnabled(false);
     ui->StopBtn->setEnabled(false);
 
     wt = new QTimer();
@@ -21,7 +20,6 @@ Widget::Widget(QWidget *parent) :
     connect(rt,SIGNAL(timeout()),this,SLOT(closeRestWall()));
 
     createTrayIcon();//托盘小图标
-
 
 }
 
@@ -62,16 +60,24 @@ Widget::~Widget()
     delete ui;
 }
 
-void Widget::on_BtnApply_clicked()
+void Widget::on_ApplyBtn_clicked()
 {
     WriteSetting();
-    ui->BtnApply->setEnabled(false);
+    ui->ApplyBtn->setEnabled(false);
     ui->StaBtn->setEnabled(true);
 }
 
-void Widget::on_BtnCancel_clicked()
+void Widget::on_CancelBtn_clicked()
 {
     this->hide();
+    //--如果有修改，点击取消后，恢复原来的设置
+    if(ui->ApplyBtn->isEnabled())
+    {
+        ui->spinRest->setValue(RestTime);
+        ui->spinWork->setValue(WorkTime);
+        ui->ApplyBtn->setEnabled(false);
+        ui->StaBtn->setEnabled(true);
+    }
 }
 
 void Widget::on_StaBtn_clicked()
@@ -144,14 +150,25 @@ void Widget::WriteSetting()
 
 void Widget::on_spinWork_valueChanged(int arg1)
 {
-    WorkTime = arg1;
-    ui->BtnApply->setEnabled(true);
-    ui->StaBtn->setEnabled(false);
+    if(arg1 != WorkTime)
+    {
+        WorkTime = arg1;
+        ui->ApplyBtn->setEnabled(true);
+        ui->StaBtn->setEnabled(false);
+    }
+
 }
 
 void Widget::on_spinRest_valueChanged(int arg1)
 {
-    RestTime = arg1;
-    ui->BtnApply->setEnabled(true);
-    ui->StaBtn->setEnabled(false);
+    if(arg1 != RestTime)
+    {
+        RestTime = arg1;
+        ui->ApplyBtn->setEnabled(true);
+        ui->StaBtn->setEnabled(false);
+    }
 }
+
+
+
+

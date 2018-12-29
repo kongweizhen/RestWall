@@ -53,32 +53,6 @@
     <string>休息时间</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="BtnApply">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>200</y>
-     <width>93</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>应用</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="BtnCancel">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>200</y>
-     <width>93</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>取消</string>
-   </property>
-  </widget>
   <widget class="QSpinBox" name="spinWork">
    <property name="geometry">
     <rect>
@@ -132,6 +106,32 @@
    </property>
    <property name="text">
     <string>暂停</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ApplyBtn">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>200</y>
+     <width>100</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>应用</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="CancelBtn">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>200</y>
+     <width>100</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>取消</string>
    </property>
   </widget>
  </widget>

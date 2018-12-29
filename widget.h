@@ -26,9 +26,6 @@ signals:
     void lastWindowClosed();
 
 private slots:
-    void on_BtnApply_clicked();
-
-    void on_BtnCancel_clicked();
 
     void showRestWall();
     void closeRestWall();
@@ -41,6 +38,10 @@ private slots:
     void on_spinWork_valueChanged(int arg1);
 
     void on_spinRest_valueChanged(int arg1);
+
+    void on_ApplyBtn_clicked();
+
+    void on_CancelBtn_clicked();
 
 private:
     Ui::Widget *ui;
