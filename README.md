@@ -2,6 +2,8 @@
 
 **测试用的时间单位是s**
 
+发布包地址：链接: https://pan.baidu.com/s/1vdnkz3FkIHvVtMSruMpaJw 提取码: 1m5w
+
 ### 2018-12-27
 
 1. 时间倒计时，触发锁屏窗口弹出，全屏；
