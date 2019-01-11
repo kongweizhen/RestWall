@@ -85,8 +85,10 @@ Widget::~Widget()
 
 void Widget::on_ApplyBtn_clicked()
 {
+    WorkTime = ui->spinWork->value();
     sw->WriteSettings("Time/WorkTime",QString::number(WorkTime));
     sw-> WorkTime = WorkTime;
+    RestTime = ui->spinRest->value();
     sw->WriteSettings("Time/RestTime",QString::number(RestTime));
     sw-> RestTime = RestTime;
     ui->ApplyBtn->setEnabled(false);
@@ -169,9 +171,13 @@ void Widget::on_spinWork_valueChanged(int arg1)
 {
     if(arg1 != WorkTime)
     {
-        WorkTime = arg1;
         ui->ApplyBtn->setEnabled(true);
         ui->StaBtn->setEnabled(false);
+    }
+    else if(RestTime == ui->spinRest->value())
+    {
+        ui->ApplyBtn->setEnabled(false);
+        ui->StaBtn->setEnabled(true);
     }
 
 }
@@ -180,9 +186,13 @@ void Widget::on_spinRest_valueChanged(int arg1)
 {
     if(arg1 != RestTime)
     {
-        RestTime = arg1;
         ui->ApplyBtn->setEnabled(true);
         ui->StaBtn->setEnabled(false);
+    }
+    else if(WorkTime == ui->spinWork->value())
+    {
+        ui->ApplyBtn->setEnabled(false);
+        ui->StaBtn->setEnabled(true);
     }
 }
 
