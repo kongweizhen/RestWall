@@ -24,9 +24,23 @@ Widget::Widget(QWidget *parent) :
     connect(wt,SIGNAL(timeout()),this,SLOT(showRestWall()));
     rt = new QTimer();
     connect(rt,SIGNAL(timeout()),this,SLOT(closeRestWall()));
+    ct = new QTimer();
+    connect(ct,SIGNAL(timeout()),this,SLOT(setWallLabel()));
+    count = 0;
 
     createTrayIcon();//托盘小图标
 
+}
+
+void Widget::setWallLabel()
+{
+    if(mywin)
+    {
+        count ++;
+        int minstr = RestTime - count/60 - 1;
+        int secstr = 60 - count%60;
+        mywin ->setLabel(QString::number(minstr)+"min "+QString::number(secstr)+"s");
+    }
 }
 
 void Widget::showRestWall()
@@ -34,7 +48,8 @@ void Widget::showRestWall()
     mywin = new MyWindow(&(sw->wst));
     connect(mywin,SIGNAL(closeMyWin()),this,SLOT(closeRestWall()));
     StopTimer(1);
-    rt->start(RestTime*1000);
+    ct->start(1000);
+    rt->start((RestTime*60)*1000);
 }
 
 void Widget::closeRestWall()
@@ -45,7 +60,9 @@ void Widget::closeRestWall()
         delete mywin;
         StopTimer(2);
     }
-    wt->start(WorkTime*1000);
+    wt->start(WorkTime*60*1000); //
+    ct->stop();
+    count = 0;
 }
 
 void Widget::StopTimer(int index)
@@ -91,7 +108,7 @@ void Widget::on_CancelBtn_clicked()
 
 void Widget::on_StaBtn_clicked()
 {
-    wt->start(WorkTime*1000);
+    wt->start(WorkTime*60*1000); //
     ui->StopBtn->setEnabled(true);
     ui->StaBtn->setEnabled(false);
     this->hide();

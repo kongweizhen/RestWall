@@ -5,6 +5,8 @@
 #include <QMouseEvent>
 #include <QMessageBox>
 #include <QDebug>
+#include <QLabel>
+#include <QHBoxLayout>
 #include "settingwidget.h"
 
 class MyWindow : public QWidget
@@ -12,6 +14,7 @@ class MyWindow : public QWidget
     Q_OBJECT
 public:
     explicit MyWindow(WallSettings *ws, QWidget *parent = nullptr);
+    void setLabel(QString);
 
 signals:
 
@@ -24,6 +27,7 @@ protected:
 
 private:
     double Opacity;
+    QLabel *la;
 
 
 };

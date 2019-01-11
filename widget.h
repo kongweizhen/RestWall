@@ -43,6 +43,7 @@ private slots:
 
     void on_CancelBtn_clicked();
     void on_settingAct();
+    void setWallLabel();
 
 private:
     Ui::Widget *ui;
@@ -51,6 +52,8 @@ private:
     int StartTime;
     QTimer *wt; //工作时间倒计时
     QTimer *rt; //休息时间倒计时
+    QTimer *ct; //倒计时
+    int count; //倒计时次数
 
     MyWindow *mywin;
     QSystemTrayIcon *trayIcon;

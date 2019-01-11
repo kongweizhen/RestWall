@@ -7,6 +7,7 @@ MyWindow::MyWindow(WallSettings *ws, QWidget *parent) : QWidget(parent)
     this->setWindowOpacity(ws->Opacity); //整体透明
     this->showFullScreen();
 
+
     this->setAutoFillBackground(true); // 这句要加上, 否则可能显示不出背景图.
     QPalette palette = this->palette();
     palette.setBrush(QPalette::Window,
@@ -16,6 +17,22 @@ MyWindow::MyWindow(WallSettings *ws, QWidget *parent) : QWidget(parent)
                   Qt::SmoothTransformation)));             // 使用平滑的缩放方式
     this->setPalette(palette);
 
+
+    //显示
+    la = new QLabel(tr("休息一会吧"));
+    int w = this->width();
+    la ->resize(w, 150);
+    la ->setAlignment(Qt::AlignCenter);
+
+    QFont font;
+    font.setFamily("Consolas");
+    font.setBold(true);
+    font.setPointSize(100);
+    la->setFont(font);
+
+    QHBoxLayout *lout = new QHBoxLayout();
+    lout->addWidget(la);
+    this->setLayout(lout);
 
 }
 
@@ -39,4 +56,9 @@ void MyWindow::mousePressEvent(QMouseEvent *e)
         }
 
     }
+}
+
+void MyWindow::setLabel(QString s)
+{
+    la->setText("倒计时："+s);
 }
