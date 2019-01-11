@@ -8,9 +8,15 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("RestWall");
     this->setWindowFlags(Qt::WindowCloseButtonHint);
-    ReadSettings();
-    ui->spinWork->setValue(WorkTime);
-    ui->spinRest->setValue(RestTime);
+    sw = new SettingWidget();
+    sw->ReadSettings();
+
+    ui->spinWork->setValue(sw->WorkTime);
+    WorkTime = sw->WorkTime;
+    ui->spinRest->setValue(sw->RestTime);
+    RestTime = sw->RestTime;
+
+    ui->StaBtn->setEnabled(true);
     ui->ApplyBtn->setEnabled(false);
     ui->StopBtn->setEnabled(false);
 
@@ -25,7 +31,7 @@ Widget::Widget(QWidget *parent) :
 
 void Widget::showRestWall()
 {
-    mywin = new MyWindow();
+    mywin = new MyWindow(&(sw->wst));
     connect(mywin,SIGNAL(closeMyWin()),this,SLOT(closeRestWall()));
     StopTimer(1);
     rt->start(RestTime*1000);
@@ -62,7 +68,10 @@ Widget::~Widget()
 
 void Widget::on_ApplyBtn_clicked()
 {
-    WriteSetting();
+    sw->WriteSettings("Time/WorkTime",QString::number(WorkTime));
+    sw-> WorkTime = WorkTime;
+    sw->WriteSettings("Time/RestTime",QString::number(RestTime));
+    sw-> RestTime = RestTime;
     ui->ApplyBtn->setEnabled(false);
     ui->StaBtn->setEnabled(true);
 }
@@ -108,9 +117,15 @@ void Widget::createTrayIcon()
 
     //---设置托盘小图标菜单
     trayMenu = new QMenu(this);
+    //---设置选项
+    QAction *settingAct = new QAction(tr("设置"));
+    connect(settingAct,SIGNAL(triggered()),this,SLOT(on_settingAct()));
+    trayMenu->addAction(settingAct);
+
     QAction *exitAct = new QAction(tr("退出"));
     connect(exitAct,SIGNAL(triggered()),this,SIGNAL(lastWindowClosed()));
     trayMenu->addAction(exitAct);
+
 
     trayIcon->setContextMenu(trayMenu);
     trayIcon->show();
@@ -132,21 +147,6 @@ void Widget::on_activatedSysTrayIcon(QSystemTrayIcon::ActivationReason reason)
     }
 }
 
-void Widget::ReadSettings()
-{
-
-    QSettings settings("restwall.ini",QSettings::IniFormat);
-    WorkTime = settings.value("Time/worktime").toInt();
-    RestTime = settings.value("Time/resttime").toInt();
-
-}
-
-void Widget::WriteSetting()
-{
-    QSettings settings("restwall.ini",QSettings::IniFormat);
-    settings.setValue("Time/worktime",WorkTime);
-    settings.setValue("Time/resttime",RestTime);
-}
 
 void Widget::on_spinWork_valueChanged(int arg1)
 {
@@ -169,6 +169,11 @@ void Widget::on_spinRest_valueChanged(int arg1)
     }
 }
 
+void Widget::on_settingAct()
+{
+    if(this->isVisible())
+        this->hide();
 
-
+    sw->show();
+}
 

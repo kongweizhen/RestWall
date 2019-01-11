@@ -7,8 +7,8 @@
 #include <QSystemTrayIcon>
 #include <QMenu>
 #include <QAction>
-#include <QSettings>
 #include "mywindow.h"
+#include "settingwidget.h"
 
 namespace Ui {
 class Widget;
@@ -42,11 +42,12 @@ private slots:
     void on_ApplyBtn_clicked();
 
     void on_CancelBtn_clicked();
+    void on_settingAct();
 
 private:
     Ui::Widget *ui;
-    int WorkTime;
     int RestTime;
+    int WorkTime;
     int StartTime;
     QTimer *wt; //工作时间倒计时
     QTimer *rt; //休息时间倒计时
@@ -54,12 +55,10 @@ private:
     MyWindow *mywin;
     QSystemTrayIcon *trayIcon;
     QMenu *trayMenu;
+    SettingWidget *sw;
 
     void StopTimer(int index);
     void createTrayIcon();
-
-    void ReadSettings();
-    void WriteSetting();
 
 
 };

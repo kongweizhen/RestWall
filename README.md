@@ -32,3 +32,8 @@
 6. release的exe文件添加了图标，只要在pro文件中加入一条RC_ICONS + = /images/cup.ico
 
    ---
+
+### 2019-1-11
+
+1. 添加新的类SettingWidget类，用来读写ini数据，和添加设置界面
+2. 增加wall的透明度选项

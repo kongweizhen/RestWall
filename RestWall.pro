@@ -27,14 +27,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         widget.cpp \
-    mywindow.cpp
+    mywindow.cpp \
+    settingwidget.cpp
 
 HEADERS += \
         widget.h \
-    mywindow.h
+    mywindow.h \
+    settingwidget.h
 
 FORMS += \
-        widget.ui
+        widget.ui \
+    settingwidget.ui
 
 RESOURCES += \
     restwall.qrc

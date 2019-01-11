@@ -4,12 +4,14 @@
 #include <QWidget>
 #include <QMouseEvent>
 #include <QMessageBox>
+#include <QDebug>
+#include "settingwidget.h"
 
 class MyWindow : public QWidget
 {
     Q_OBJECT
 public:
-    explicit MyWindow(QWidget *parent = nullptr);
+    explicit MyWindow(WallSettings *ws, QWidget *parent = nullptr);
 
 signals:
 
@@ -19,6 +21,9 @@ public slots:
 
 protected:
     void mousePressEvent(QMouseEvent *e);
+
+private:
+    double Opacity;
 
 
 };

@@ -1,10 +1,10 @@
 #include "mywindow.h"
 
-MyWindow::MyWindow(QWidget *parent) : QWidget(parent)
+MyWindow::MyWindow(WallSettings *ws, QWidget *parent) : QWidget(parent)
 {
     this->setWindowTitle("Hello");
     //this->setWindowModality(Qt::ApplicationModal); //阻塞整个应用程序
-    this->setWindowOpacity(0.8); //整体透明
+    this->setWindowOpacity(ws->Opacity); //整体透明
     this->showFullScreen();
 
     this->setAutoFillBackground(true); // 这句要加上, 否则可能显示不出背景图.
@@ -18,6 +18,7 @@ MyWindow::MyWindow(QWidget *parent) : QWidget(parent)
 
 
 }
+
 
 void MyWindow::mousePressEvent(QMouseEvent *e)
 {
