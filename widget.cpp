@@ -45,6 +45,8 @@ void Widget::setWallLabel()
 
 void Widget::showRestWall()
 {
+    if(this->isVisible())
+        this->hide();
     mywin = new MyWindow(&(sw->wst));
     connect(mywin,SIGNAL(closeMyWin()),this,SLOT(closeRestWall()));
     StopTimer(1);
@@ -136,6 +138,11 @@ void Widget::createTrayIcon()
 
     //---设置托盘小图标菜单
     trayMenu = new QMenu(this);
+    //---立即休息
+    QAction *inrestAct = new QAction(tr("休息"));
+    connect(inrestAct,SIGNAL(triggered()),this,SLOT(showRestWall()));
+    trayMenu->addAction(inrestAct);
+
     //---设置选项
     QAction *settingAct = new QAction(tr("设置"));
     connect(settingAct,SIGNAL(triggered()),this,SLOT(on_settingAct()));
